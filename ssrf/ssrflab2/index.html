@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        @import  url(https://fonts.googleapis.com/css?family=Montserrat);
+body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  font-family: Montserrat;
+  background: #313E50;
+}
+.text-input{
+  
+  position: relative;
+  margin-top: 50px;
+}
+  input[type="text"]{
+    display: inline-block;
+    width: 500px;
+    height: 40px;
+    box-sizing: border-box;
+    outline: none;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    padding: 10px 10px 10px 100px;
+    transition: all 0.1s ease-out;
+  }
+  
+  input[type="text"] + label{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 40px;
+    line-height: 40px;
+    color: white;
+    border-radius: 3px 0 0 3px;
+    padding: 0 20px;
+    background: #E03616;
+    transform: translateZ(0) translateX(0);
+    transition: all 0.3s ease-in;
+    transition-delay: 0.2s;
+  }
+  
+  input[type="text"]:focus + label{
+    transform: translateY(-120%) translateX(0%);
+    border-radius: 3px;
+    transition: all 0.1s ease-out;
+  }
+  
+  input[type="text"]:focus{
+    padding: 10px;
+    transition: all 0.3s ease-out;
+    transition-delay: 0.2s;
+  }
+</style>
+    </head>
+    <body>
+       <h2> 
+    <center style="color:rgb(255, 255, 255)">
+        Welcome to Image Fetcher!
+    </center>
+</h2>
+<div class="text-input">
+    <input type="text" id="input1" placeholder="http://website.com/image.jpg">
+    <label for="input1">URL</label>
+    <input id=button style="border-radius: 3px;
+    background: #E03616;color:white;padding:10px;font-family: Montserrat;font-size:14px;position: absolute;height: 40px;"type="submit" value="FETCH!">
+   
+  </div>
+  <div><br> <br> 
+      <span style="color:white;">Image Loaded:</span><br> 
+      <center>
+          <div style="display:none" id="loaded-image"   ><br>
+    </div></center>
+  </div>
+  <script>
+    var btn=document.getElementById("button");
+    var imgload=document.getElementById("loaded-image");
+    btn.addEventListener("click",function(){
+    var x=new XMLHttpRequest();
+    x.onload=function(){
+        var img=x.responseText;
+        imgload.innerHTML="<img src='data:image/png;base64," + img + "'  style='max-height: 250px;max-width: 400px%;' />";
+        imgload.style.display="block";
+    }
+    x.open("GET","fetch_image.php?url="+document.getElementById('input1').value);
+    x.send();
+    });
+</script>
+  </body>
+  </html>

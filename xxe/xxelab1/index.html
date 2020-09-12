@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+<meta name="apple-mobile-web-app-title" content="CodePen">
+<link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+<title>XXE Lab!</title>
+<style>
+@import url(https://fonts.googleapis.com/css?family=Nunito:400,300);
+
+/******************************************************
+ * =General
+ *****************************************************/
+
+/**
+ * Antialiasing
+ */
+
+body, input, button {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/**
+ * Reset
+ */
+
+body, form, input, button, h1 {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/******************************************************
+ * =Body
+ *****************************************************/
+
+body {
+  padding: 60px;
+  background: #2b2b2b;
+  font-family: Nunito, sans-serif;
+  font-size: 100%;
+}
+
+/******************************************************
+ * =Form
+ *****************************************************/
+
+form {
+  margin: auto;
+  padding: 18px 22px;;
+  width: 320px;
+  border-radius: 5px;
+  background: #2f3439;
+}
+
+/**
+ * Title
+ */
+
+h1 {
+  font: normal 1.6em/1.6em Nunito, sans-serif;
+  color: #fff;
+  text-align: center;
+  margin: 10px 0 23px;
+}
+
+/**
+ * Inputs and button
+ */
+
+input, button {
+  width: 100%;
+  border: none;
+  padding: 16px;
+  font-size: 1.1em;
+  border-radius: 5px;
+  -webkit-transition: background-color 80ms ease-out;
+  -moz-transition: background-color 80ms ease-out;
+  -o-transition: background-color 80ms ease-out;
+  -ms-transition: background-color 80ms ease-out;
+  transition: background-color 80ms ease-out;
+}
+
+/**
+ * Inputs
+ */
+
+input {
+  margin-bottom: 22px;
+  background: #eee;
+  padding-left: 56px;
+}
+
+input[type=text] {
+  background-image: url(https://miloluca.github.io/playground/001_User-Login/icons/user.svg);
+  background-repeat: no-repeat;
+  background-size: 24px;
+  background-position: 16px center;
+}
+
+input[type=password] {
+  background-image: url(https://miloluca.github.io/playground/001_User-Login/icons/lock.svg);
+  background-repeat: no-repeat;
+  background-size: 24px;
+  background-position: 16px center;
+}
+
+input:hover {
+  background-color: rgb(244, 244, 244);
+}
+
+input:focus {
+  border-left: 3px solid #ee7147;
+  outline: none;
+  background-color: #fff;
+}
+
+/**
+ * Button
+ */
+
+button {
+  background-color: #ee7147;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover, button:focus {
+  background-color: #ff875a;
+  outline: none;
+}
+
+button:active  {
+  background-color: #c77354;
+  
+  opacity: .7;
+}
+</style>
+<script>
+  window.console = window.console || function(t) {};
+</script>
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+</head>
+<body translate="no">
+<form onsubmit="return false;">
+<h1>User Login</h1>
+<input type="text" id="username" placeholder="Username">
+<input type="password" id="password" placeholder="Password">
+<button id=loginbtn>Log-in</button>
+</form>
+
+<script>
+var btn=document.getElementById('loginbtn');
+btn.addEventListener('click',function(){
+var username=document.getElementById('username');
+var password=document.getElementById('password');
+var x= new XMLHttpRequest();
+x.open("POST","/xxelab1/login");
+x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+x.send("<?xml version='1.0'?><root><username>"+username.value+"</username><password>"+password.value+"</password></root>");
+});
+</script>
+
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+<script id="rendered-js">
+/*
+
+The design of this one isn't mine, it was a freebie on Dribbble, (I think it was a freebie, I'm not sure, I've saved the screenshot some time ago and now decluttering my computer I found it and tried to copy the image in html and css). It's just for practice.
+
+Notes: I haven't tested it in browsers other than Chrome so it may not work there. The fonts look nice in Mac OS but they don't look so pretty in Windows. (Chrome for Windows has a problem with antialiazing--it can only render it well in SVG fonts and the Google Fonts API uses WOFF for Chrome. Hopefully sometime in the future Chrome for Windows would render WOFF as it does SVG).
+
+*/
+//# sourceURL=pen.js
+    </script>
+</body>
+</html>
+
+
+	
